@@ -1,0 +1,17 @@
+language: go
+go:
+- master
+env:
+- GOPATH=/debiantest
+before_install:
+  - sudo apt-get install -y devscripts build-essential lintian debhelper
+script: 
+- go run -v ./...
+- go build -v ./...
+- tar -xvf knapp-deb.tar
+- cp ./debiantest ./knapp-0.0.1/tree/knapp
+- cp ./debiantest ./knapp-0.0.1/tree/knapp-watcher
+- cd ./knapp-0.0.1
+- debuild -d -uc -us
+- cd ..
+- ls
