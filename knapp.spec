@@ -30,20 +30,24 @@ exit
 %install
 
 mkdir -p %{buildroot}/%{_bindir}
-mkdir ~/.knapp
 install -m 0755 %{SOURCE0} %{buildroot}/%{_bindir}
-install -m 0755 %{SOURCE1} ~/.knapp
+install -m 0755 %{SOURCE1} %{buildroot}/%{_bindir}
 
 
 %files
 %{_bindir}/%{name}
-~/.knapp/*
+%{_bindir}/%{name}-watcher
 
 %pre
 
 %post
+if [ ! -d "$HOME/.knapp" ]; then
+    mkdir $HOME/.knapp
+fi
+cp %{_bindir}/knapp-watcher $HOME/.knapp
 
 %postun
+rm -rf $HOME/.knapp
 
 %clean
 rm -rf %{buildroot}/%{_bindir}
