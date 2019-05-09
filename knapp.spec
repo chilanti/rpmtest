@@ -12,7 +12,7 @@ Group: System
 Packager: Michele Chilanti
 Requires: bash
 Source0: %{name}
-Source1: %{name}_watcher
+Source1: %{name}-watcher
 
 %description
 Knapp CLI
