@@ -31,7 +31,7 @@ exit
 
 mkdir -p %{buildroot}/%{_bindir}
 mkdir ~/.knapp
-install -m 0755 %{name} %{buildroot}/%{_bindir}/%{name}
+install -m 0755 %{name} %{buildroot}/%{_bindir}
 install -m 0755 %{name}-watcher ~/.knapp
 
 
