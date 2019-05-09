@@ -31,8 +31,8 @@ exit
 
 mkdir -p %{buildroot}/%{_bindir}
 mkdir ~/.knapp
-install -m 0755 %{Source0} %{buildroot}/%{_bindir}
-install -m 0755 %{Source1} ~/.knapp
+install -m 0755 %{SOURCE0} %{buildroot}/%{_bindir}
+install -m 0755 %{SOURCE1} ~/.knapp
 
 
 %files
