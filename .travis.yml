@@ -1,17 +1,28 @@
+sudo: required
 language: go
 go:
 - master
 env:
-- GOPATH=/debiantest
+  global:
+  - GOPATH=/rpmtest
+  - DOCKER_IMAGE=alectolytic/rpmbuilder
+  - OS_ARCH=x86_64
+  matrix:
+  - OS_TYPE=fedora OS_DIST=fedora OS_VERSION=24
+  - OS_TYPE=centos OS_DIST=epel OS_VERSION=7
+services:
+- docker
 before_install:
   - sudo apt-get install -y devscripts build-essential lintian debhelper
+install: true
 script: 
 - go run -v ./...
 - go build -v ./...
-- tar -xvf knapp-deb.tar
-- cp ./debiantest ./knapp-0.0.1/tree/knapp
-- cp ./debiantest ./knapp-0.0.1/tree/knapp-watcher
-- cd ./knapp-0.0.1
-- debuild -d -uc -us
-- cd ..
+- tar -xvf knapp-rmp.tar
+- cp ./rpmtest ./knapp-rpm/development/scripts/knapp
+- cp ./rpmtest ./knapp-rpm/development/scripts/knapp-watcher
+- docker run -v ${PWD}:/sources -v ${PWD}:/output:Z -e "SRPM_ONLY=1" ${DOCKER_IMAGE}:${OS_TYPE}-${OS_VERSION}
+
+after_success:
 - ls
+
