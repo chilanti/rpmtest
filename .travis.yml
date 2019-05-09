@@ -8,7 +8,7 @@ env:
   - DOCKER_IMAGE=alectolytic/rpmbuilder
   - OS_ARCH=x86_64
   matrix:
-  - OS_TYPE=fedora OS_DIST=fedora OS_VERSION=24
+#  - OS_TYPE=fedora OS_DIST=fedora OS_VERSION=24
   - OS_TYPE=centos OS_DIST=epel OS_VERSION=7
 services:
 - docker
@@ -18,9 +18,10 @@ install: true
 script: 
 - go run -v ./...
 - go build -v ./...
-- tar -xvf knapp-rmp.tar
+- tar -xvf knapp-rpm.tar
 - cp ./rpmtest ./knapp-rpm/development/scripts/knapp
 - cp ./rpmtest ./knapp-rpm/development/scripts/knapp-watcher
+- cd knapp-rpm
 - docker run -v ${PWD}:/sources -v ${PWD}:/output:Z -e "SRPM_ONLY=1" ${DOCKER_IMAGE}:${OS_TYPE}-${OS_VERSION}
 
 after_success:
