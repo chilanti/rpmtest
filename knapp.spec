@@ -32,7 +32,7 @@ exit
 mkdir -p %{buildroot}/%{_bindir}
 mkdir ~/.${name}
 install -m 0755 %{name} %{buildroot}/%{_bindir}/%{name}
-install -m 0755 %{name}_watcher ~/.{name}
+install -m 0755 %{name}-watcher ~/.{name}
 
 
 %files
